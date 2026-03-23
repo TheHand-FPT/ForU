@@ -1,24 +1,29 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+
+const messages = [
+  "Precision matters",
+  "Focus on the center",
+  "Simplicity is complexity",
+  "Keep ascending",
+  "Pure interaction",
+  "The summit awaits",
+];
 
 export default function Clicker() {
   const [score, setScore] = useState<number>(0);
-  const [level, setLevel] = useState<number>(1);
-  const [milestone, setMilestone] = useState<number>(50);
   const [message, setMessage] = useState<string>("Begin the journey");
   const [clicks, setClicks] = useState<{ id: number; x: number; y: number }[]>(
     [],
   );
 
-  const messages = [
-    "Precision matters",
-    "Focus on the center",
-    "Simplicity is complexity",
-    "Keep ascending",
-    "Pure interaction",
-    "The summit awaits",
-  ];
+  const level = useMemo(() => {
+    if (score < 50) return 1;
+    return Math.floor(Math.log(score / 50) / Math.log(2.8)) + 2;
+  }, [score]);
+
+  const milestone = useMemo(() => 50 * Math.pow(2.8, level - 1), [level]);
 
   const handleInteraction = useCallback(
     (e: React.MouseEvent | React.TouchEvent) => {
@@ -34,7 +39,19 @@ export default function Clicker() {
 
       const newClick = { id: Date.now(), x: clientX, y: clientY };
       setClicks((prev) => [...prev, newClick]);
-      setScore((prev) => prev + 1);
+      setScore((prev) => {
+        const newScore = prev + 1;
+        const currentLevel =
+          prev < 50 ? 1 : Math.floor(Math.log(prev / 50) / Math.log(2.8)) + 2;
+        const newLevel =
+          newScore < 50
+            ? 1
+            : Math.floor(Math.log(newScore / 50) / Math.log(2.8)) + 2;
+        if (newLevel > currentLevel) {
+          setMessage(messages[Math.floor(Math.random() * messages.length)]);
+        }
+        return newScore;
+      });
 
       // Remove the click element after animation
       setTimeout(() => {
@@ -43,14 +60,6 @@ export default function Clicker() {
     },
     [],
   );
-
-  useEffect(() => {
-    if (score >= milestone) {
-      setLevel((prev) => prev + 1);
-      setMilestone((prev) => Math.floor(prev * 2.8));
-      setMessage(messages[Math.floor(Math.random() * messages.length)]);
-    }
-  }, [score, milestone]);
 
   const progress = Math.min((score / milestone) * 100, 100);
 

@@ -66,16 +66,19 @@ export default function Pathfinder() {
 
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const createNode = (col: number, row: number): Node => ({
-    col,
-    row,
-    isStart: row === startNodePos.row && col === startNodePos.col,
-    isFinish: row === finishNodePos.row && col === finishNodePos.col,
-    distance: Infinity,
-    isVisited: false,
-    isWall: false,
-    previousNode: null,
-  });
+  const createNode = useCallback(
+    (col: number, row: number): Node => ({
+      col,
+      row,
+      isStart: row === startNodePos.row && col === startNodePos.col,
+      isFinish: row === finishNodePos.row && col === finishNodePos.col,
+      distance: Infinity,
+      isVisited: false,
+      isWall: false,
+      previousNode: null,
+    }),
+    [startNodePos, finishNodePos],
+  );
 
   const getInitialGrid = useCallback(() => {
     const newGrid = [];
@@ -87,7 +90,7 @@ export default function Pathfinder() {
       newGrid.push(currentRow);
     }
     return newGrid;
-  }, [startNodePos, finishNodePos, rows, cols]);
+  }, [rows, cols, createNode]);
 
   useEffect(() => {
     setGrid(getInitialGrid());
@@ -95,13 +98,13 @@ export default function Pathfinder() {
 
   useEffect(() => {
     // Adjust start and finish positions if they are out of bounds
-    setStartNodePos(prev => ({
+    setStartNodePos((prev) => ({
       row: Math.min(prev.row, rows - 1),
-      col: Math.min(prev.col, cols - 1)
+      col: Math.min(prev.col, cols - 1),
     }));
-    setFinishNodePos(prev => ({
+    setFinishNodePos((prev) => ({
       row: Math.min(prev.row, rows - 1),
-      col: Math.min(prev.col, cols - 1)
+      col: Math.min(prev.col, cols - 1),
     }));
   }, [rows, cols]);
 
