@@ -1,0 +1,20 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.gitignore": true,
+    ".github": true,
+    ".next": true,
+    ".vscode": true,
+    ".eslintrc.json": true,
+    "node_modules": true,
+    "out": true,
+    "next-env.d.ts": true,
+    "next.config.ts": true,
+    "package.json": true,
+    "eslint.config.mjs": true,
+    "postcss.config.mjs": true,
+    "tsconfig.json": true
+  }
+}
