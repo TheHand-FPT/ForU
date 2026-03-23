@@ -1,6 +1,74 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap");
 
 @theme {
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-ink: #0a0a0a;
+  --color-paper: #e6e6e3;
+  --color-accent: #ffffff;
+  --color-dim: #333333;
+  --color-visited: #222222;
+  --color-path: #ffffff;
+  --color-start: #00ff00;
+  --color-end: #ff0000;
+}
+
+@layer base {
+  body {
+    @apply bg-ink text-paper font-mono selection:bg-paper selection:text-ink;
+  }
+}
+
+/* Custom scrollbar for technical look */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-ink;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-dim;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-paper;
+}
+
+.grid-line {
+  background-image:
+    linear-gradient(to right, #333 1px, transparent 1px),
+    linear-gradient(to bottom, #333 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 255, 255, 0.02),
+    transparent
+  );
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+  z-index: 50;
 }

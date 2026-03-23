@@ -13,10 +13,10 @@ const GAMES = [
     color: "bg-red-500",
   },
   {
-    title: "Example",
-    description: "The example multiplayer game.",
+    title: "Pathfinder",
+    description: "Maze solver simulation.",
     icon: Zap,
-    href: "/games/example-multiplayer",
+    href: "/games/pathfinder",
     color: "bg-yellow-500",
   },
   {
