@@ -61,6 +61,8 @@ export default function Pathfinder() {
   const [speed, setSpeed] = useState(10);
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const [movingNode, setMovingNode] = useState<"START" | "FINISH" | null>(null);
+  const [rows, setRows] = useState(INITIAL_ROWS);
+  const [cols, setCols] = useState(INITIAL_COLS);
 
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -77,19 +79,31 @@ export default function Pathfinder() {
 
   const getInitialGrid = useCallback(() => {
     const newGrid = [];
-    for (let row = 0; row < INITIAL_ROWS; row++) {
+    for (let row = 0; row < rows; row++) {
       const currentRow = [];
-      for (let col = 0; col < INITIAL_COLS; col++) {
+      for (let col = 0; col < cols; col++) {
         currentRow.push(createNode(col, row));
       }
       newGrid.push(currentRow);
     }
     return newGrid;
-  }, [startNodePos, finishNodePos]);
+  }, [startNodePos, finishNodePos, rows, cols]);
 
   useEffect(() => {
     setGrid(getInitialGrid());
   }, [getInitialGrid]);
+
+  useEffect(() => {
+    // Adjust start and finish positions if they are out of bounds
+    setStartNodePos(prev => ({
+      row: Math.min(prev.row, rows - 1),
+      col: Math.min(prev.col, cols - 1)
+    }));
+    setFinishNodePos(prev => ({
+      row: Math.min(prev.row, rows - 1),
+      col: Math.min(prev.col, cols - 1)
+    }));
+  }, [rows, cols]);
 
   const handleMouseDown = (row: number, col: number) => {
     if (isVisualizing) return;
@@ -252,7 +266,7 @@ export default function Pathfinder() {
     if (isVisualizing) return;
     resetGrid();
     const newGrid = getInitialGrid();
-    const walls = generateMaze(newGrid, INITIAL_COLS, INITIAL_ROWS);
+    const walls = generateMaze(newGrid, cols, rows);
 
     // Animate wall generation
     walls.forEach((node, i) => {
@@ -403,6 +417,36 @@ export default function Pathfinder() {
                   <div className="space-y-4">
                     <div>
                       <div className="flex justify-between text-[10px] mb-2">
+                        <span>MAZE_WIDTH</span>
+                        <span>{cols}</span>
+                      </div>
+                      <input
+                        type="range"
+                        min="10"
+                        max="50"
+                        value={cols}
+                        onChange={(e) => setCols(parseInt(e.target.value))}
+                        disabled={isVisualizing}
+                        className="w-full accent-accent bg-dim h-1 appearance-none cursor-pointer"
+                      />
+                    </div>
+                    <div>
+                      <div className="flex justify-between text-[10px] mb-2">
+                        <span>MAZE_HEIGHT</span>
+                        <span>{rows}</span>
+                      </div>
+                      <input
+                        type="range"
+                        min="10"
+                        max="50"
+                        value={rows}
+                        onChange={(e) => setRows(parseInt(e.target.value))}
+                        disabled={isVisualizing}
+                        className="w-full accent-accent bg-dim h-1 appearance-none cursor-pointer"
+                      />
+                    </div>
+                    <div>
+                      <div className="flex justify-between text-[10px] mb-2">
                         <span>SIMULATION_SPEED</span>
                         <span>{speed}ms</span>
                       </div>
@@ -444,8 +488,8 @@ export default function Pathfinder() {
             <div
               className="grid"
               style={{
-                gridTemplateColumns: `repeat(${INITIAL_COLS}, 20px)`,
-                gridTemplateRows: `repeat(${INITIAL_ROWS}, 20px)`,
+                gridTemplateColumns: `repeat(${cols}, 20px)`,
+                gridTemplateRows: `repeat(${rows}, 20px)`,
               }}
             >
               {grid.map((row, rowIdx) =>
@@ -498,7 +542,7 @@ export default function Pathfinder() {
       <footer className="border-t border-dim p-2 flex items-center justify-between text-[10px] text-dim uppercase tracking-widest z-40 bg-ink">
         <div className="flex gap-4">
           <span>
-            GRID: {INITIAL_ROWS}x{INITIAL_COLS}
+            GRID: {rows}x{cols}
           </span>
           <span>ALGO: {algorithm}</span>
           <span>SPEED: {speed}MS</span>
