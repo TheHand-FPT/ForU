@@ -1,4 +1,4 @@
-export type Algorithm = 'DIJKSTRA' | 'ASTAR' | 'BFS' | 'DFS';
+export type Algorithm = "DIJKSTRA" | "ASTAR" | "BFS" | "DFS";
 
 export interface Node {
   row: number;

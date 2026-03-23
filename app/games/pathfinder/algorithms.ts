@@ -1,4 +1,4 @@
-import { Node } from './types';
+import { Node } from "./types";
 
 // Dijkstra's Algorithm
 export function dijkstra(grid: Node[][], startNode: Node, finishNode: Node) {
@@ -71,7 +71,7 @@ export function dfs(grid: Node[][], startNode: Node, finishNode: Node) {
   while (stack.length) {
     const currentNode = stack.pop()!;
     if (currentNode.isVisited || currentNode.isWall) continue;
-    
+
     currentNode.isVisited = true;
     visitedNodesInOrder.push(currentNode);
     if (currentNode === finishNode) return visitedNodesInOrder;
@@ -117,7 +117,11 @@ function updateUnvisitedNeighbors(node: Node, grid: Node[][]) {
   }
 }
 
-function updateUnvisitedNeighborsAStar(node: Node, finishNode: Node, grid: Node[][]) {
+function updateUnvisitedNeighborsAStar(
+  node: Node,
+  finishNode: Node,
+  grid: Node[][],
+) {
   const unvisitedNeighbors = getUnvisitedNeighbors(node, grid);
   for (const neighbor of unvisitedNeighbors) {
     const newDistance = node.distance + 1;
@@ -136,7 +140,7 @@ function getUnvisitedNeighbors(node: Node, grid: Node[][]) {
   if (row < grid.length - 1) neighbors.push(grid[row + 1][col]);
   if (col > 0) neighbors.push(grid[row][col - 1]);
   if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
-  return neighbors.filter(neighbor => !neighbor.isVisited);
+  return neighbors.filter((neighbor) => !neighbor.isVisited);
 }
 
 function getDistance(nodeA: Node, nodeB: Node) {
@@ -171,7 +175,7 @@ export function generateMaze(grid: Node[][], width: number, height: number) {
   function divide(r1: number, r2: number, c1: number, c2: number) {
     if (r2 - r1 < 2 || c2 - c1 < 2) return;
 
-    const horizontal = (r2 - r1) > (c2 - c1);
+    const horizontal = r2 - r1 > c2 - c1;
 
     if (horizontal) {
       // Horizontal wall on an even row
@@ -179,11 +183,12 @@ export function generateMaze(grid: Node[][], width: number, height: number) {
       for (let r = r1 + 1; r < r2; r += 2) possibleRows.push(r);
       if (possibleRows.length === 0) return;
       const row = possibleRows[Math.floor(Math.random() * possibleRows.length)];
-      
+
       // Passage on an odd column
       const possiblePassages = [];
       for (let c = c1; c <= c2; c += 2) possiblePassages.push(c);
-      const passage = possiblePassages[Math.floor(Math.random() * possiblePassages.length)];
+      const passage =
+        possiblePassages[Math.floor(Math.random() * possiblePassages.length)];
 
       for (let i = c1; i <= c2; i++) {
         if (i !== passage && !grid[row][i].isStart && !grid[row][i].isFinish) {
@@ -199,11 +204,12 @@ export function generateMaze(grid: Node[][], width: number, height: number) {
       for (let c = c1 + 1; c < c2; c += 2) possibleCols.push(c);
       if (possibleCols.length === 0) return;
       const col = possibleCols[Math.floor(Math.random() * possibleCols.length)];
-      
+
       // Passage on an odd row
       const possiblePassages = [];
       for (let r = r1; r <= r2; r += 2) possiblePassages.push(r);
-      const passage = possiblePassages[Math.floor(Math.random() * possiblePassages.length)];
+      const passage =
+        possiblePassages[Math.floor(Math.random() * possiblePassages.length)];
 
       for (let r = r1; r <= r2; r++) {
         if (r !== passage && !grid[r][col].isStart && !grid[r][col].isFinish) {
@@ -218,6 +224,6 @@ export function generateMaze(grid: Node[][], width: number, height: number) {
 
   // Start division in the inner area
   divide(1, height - 2, 1, width - 2);
-  
+
   return walls;
 }

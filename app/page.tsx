@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "motion/react";
-import { Gamepad2, Zap, Target, Swords, Ghost, Rocket } from "lucide-react";
 import GameCard from "@/components/GameCard";
+import { Gamepad2, Ghost, Rocket, Swords, Target, Zap } from "lucide-react";
+import { motion } from "motion/react";
 
 const GAMES = [
   {
