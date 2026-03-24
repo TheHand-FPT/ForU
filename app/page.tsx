@@ -20,10 +20,10 @@ const GAMES = [
     color: "bg-yellow-500",
   },
   {
-    title: "Space Invaders",
-    description: "Defend Earth from waves of descending alien invaders.",
+    title: "Tank",
+    description: "Tank boom!",
     icon: Rocket,
-    href: "/games/space-invaders",
+    href: "/games/tank",
     color: "bg-blue-500",
   },
   {
