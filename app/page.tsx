@@ -1,7 +1,7 @@
 "use client";
 
 import GameCard from "@/components/GameCard";
-import { Gamepad2, Rocket, Swords, Target, Zap, Shield} from "lucide-react";
+import { Gamepad2, Rocket, Swords, Target, Zap, Shield,Earth} from "lucide-react";
 import { motion } from "motion/react";
 
 const GAMES = [
@@ -41,10 +41,10 @@ const GAMES = [
     color: "bg-purple-500",
   },
   {
-    title: "Retro Arcade",
-    description: "A collection of classic 8-bit inspired mini-challenges.",
-    icon: Gamepad2,
-    href: "/games/retro-arcade",
+    title: "Ascension: Earth 3618",
+    description: "An escape from the ruined Earth.",
+    icon: Earth,
+    href: "/games/ascension",
     color: "bg-orange-500",
   },
 ];
