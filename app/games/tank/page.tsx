@@ -1,49 +1,36 @@
 "use client";
 
-import { useEffect, useRef } from 'react';
-import { Application } from 'pixi.js';
-import { GameManager } from './game/GameManager';
-import { COLORS } from './game/Constants';
+import React, { useState } from 'react';
+import { Game } from './game/Game';
+import { GameOver } from './components/GameOver';
 
 export default function App() {
-  const canvasRef = useRef<HTMLDivElement>(null);
-  const appRef = useRef<Application | null>(null);
+  const [gameKey, setGameKey] = useState(0);
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [finalScore, setFinalScore] = useState(0);
 
-  useEffect(() => {
-    const initPixi = async () => {
-      if (!canvasRef.current) return;
+  const handleGameOver = (score: number) => {
+    setFinalScore(score);
+    setIsGameOver(true);
+  };
 
-      const app = new Application();
-      await app.init({
-        resizeTo: window,
-        backgroundColor: COLORS.BACKGROUND,
-        antialias: true,
-        resolution: window.devicePixelRatio || 1,
-        autoDensity: true,
-      });
-
-      canvasRef.current.appendChild(app.canvas);
-      appRef.current = app;
-
-      // Initialize Game Manager
-      new GameManager(app);
-    };
-
-    initPixi();
-
-    return () => {
-      if (appRef.current) {
-        appRef.current.destroy(true, { children: true, texture: true });
-        appRef.current = null;
-      }
-    };
-  }, []);
+  const restartGame = () => {
+    setGameKey(prev => prev + 1);
+    setIsGameOver(false);
+  };
 
   return (
-    <div 
-      ref={canvasRef} 
-      className="w-full h-screen overflow-hidden bg-black"
-      id="game-container"
-    />
+    <div className="min-h-screen bg-[#f5f5f4] text-[#0a0a0a] font-sans selection:bg-black selection:text-white flex flex-col items-center justify-center p-8 relative overflow-hidden">
+      <Game key={gameKey} onGameOver={handleGameOver} />
+
+      <GameOver 
+        isGameOver={isGameOver} 
+        finalScore={finalScore} 
+        onRestart={restartGame} 
+      />
+
+      {/* Global Grain/Texture Overlay */}
+      <div className="fixed inset-0 pointer-events-none opacity-[0.03] mix-blend-multiply bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+    </div>
   );
 }
