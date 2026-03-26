@@ -1,27 +1,34 @@
 "use client";
 
 import GameCard from "@/components/GameCard";
-import { Gamepad2, Rocket, Swords, Target, Zap, Shield,Earth} from "lucide-react";
+import {
+  Crosshair,
+  Dices,
+  Rocket,
+  Route,
+  Shield,
+  Earth
+} from "lucide-react";
 import { motion } from "motion/react";
 
 const GAMES = [
   {
-    title: "Clicker",
-    description: "The art of interaction.",
-    icon: Target,
-    href: "/games/clicker",
+    title: "Chill CIWS",
+    description: "Watch CIWS firing for forever.",
+    icon: Crosshair,
+    href: "https://ciws.fowel.online",
     color: "bg-red-500",
   },
   {
     title: "Pathfinder",
     description: "Maze solver simulation.",
-    icon: Zap,
+    icon: Route,
     href: "/games/pathfinder",
     color: "bg-yellow-500",
   },
   {
     title: "Tank",
-    description: "Tank boom!",
+    description: "Tank Trouble fake",
     icon: Rocket,
     href: "/games/tank",
     color: "bg-blue-500",
@@ -29,7 +36,7 @@ const GAMES = [
   {
     title: "Dice Roller",
     description: "Roll the dice and see what fate has in store for you.",
-    icon: Swords,
+    icon: Dices,
     href: "/games/dice",
     color: "bg-emerald-500",
   },

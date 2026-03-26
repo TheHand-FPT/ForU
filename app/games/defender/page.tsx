@@ -18,7 +18,7 @@ import {
   Particle,
   Point,
   Projectile,
-  Tower
+  Tower,
 } from "./types";
 import { generateMaze } from "./utils/maze";
 import { aStar } from "./utils/pathfinding";
@@ -79,7 +79,7 @@ export default function App() {
       newLevel.startNode,
       newLevel.goalNode,
     );
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setGrid(g);
 
     enemiesRef.current = [];

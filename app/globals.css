@@ -72,3 +72,50 @@
   pointer-events: none;
   z-index: 50;
 }
+
+.title-serif {
+  font-family: var(--font-serif);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.dice-face {
+  background: black;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tile {
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.tile-walkable {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 1);
+  box-shadow: inset 0 0 4px rgba(0,0,0,0.01);
+}
+
+.tile-highlight {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 1);
+}
+
+.player-token {
+  background: black;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bot-token {
+  border: 2px solid black;
+  border-radius: 4px;
+  transform: rotate(45deg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
