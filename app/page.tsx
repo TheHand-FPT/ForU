@@ -1,7 +1,7 @@
 "use client";
 
 import GameCard from "@/components/GameCard";
-import { Gamepad2, Ghost, Rocket, Swords, Target, Zap } from "lucide-react";
+import { Gamepad2, Rocket, Swords, Target, Zap, Shield} from "lucide-react";
 import { motion } from "motion/react";
 
 const GAMES = [
@@ -34,10 +34,10 @@ const GAMES = [
     color: "bg-emerald-500",
   },
   {
-    title: "Ghost Hunter",
-    description: "Navigate the haunted mansion and capture all the spirits.",
-    icon: Ghost,
-    href: "/games/ghost-hunter",
+    title: "Defender",
+    description: "Defend your base from waves of enemies.",
+    icon: Shield,
+    href: "/games/defender",
     color: "bg-purple-500",
   },
   {
