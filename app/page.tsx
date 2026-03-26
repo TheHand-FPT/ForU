@@ -27,10 +27,10 @@ const GAMES = [
     color: "bg-blue-500",
   },
   {
-    title: "Sword Master",
-    description: "Test your reflexes in this fast-paced arena combat game.",
+    title: "Dice Roller",
+    description: "Roll the dice and see what fate has in store for you.",
     icon: Swords,
-    href: "/games/sword-master",
+    href: "/games/dice",
     color: "bg-emerald-500",
   },
   {
