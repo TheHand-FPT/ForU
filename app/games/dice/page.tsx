@@ -24,7 +24,7 @@ export default function App() {
   const [items, setItems] = useState<Item[]>([]);
   const [inventory, setInventory] = useState<ActiveItem[]>([]);
   const [rollCount, setRollCount] = useState(0);
-  const [lastRollTime, setLastRollTime] = useState<number>(Date.now());
+  const [lastRollTime, setLastRollTime] = useState<number>(0);
   const [gameStarted, setGameStarted] = useState(false);
   const [level, setLevel] = useState<1 | 2>(1);
   const [targetRolls, setTargetRolls] = useState(0);
