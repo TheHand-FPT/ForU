@@ -5,10 +5,11 @@ import GameCard from "@/components/GameCard";
 import {
   Crosshair,
   Dices,
+  Earth,
+  FolderGit2,
   Rocket,
   Route,
-  Shield,
-  Earth
+  Shield
 } from "lucide-react";
 import { motion } from "motion/react";
 
@@ -67,13 +68,26 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            className="flex flex-col md:flex-row md:items-end md:justify-between gap-8"
           >
-            <h1 className="font-display text-6xl font-black uppercase tracking-tighter sm:text-7xl lg:text-8xl text-zinc-400">
-              For <span className="text-zinc-200">U</span>
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg text-zinc-400 sm:text-xl">
-              A game collection made for you.
-            </p>
+            <div>
+              <h1 className="font-display text-6xl font-black uppercase tracking-tighter sm:text-7xl lg:text-8xl text-zinc-400">
+                For <span className="text-zinc-200">U</span>
+              </h1>
+              <p className="mt-6 max-w-2xl text-lg text-zinc-400 sm:text-xl">
+                A game collection made for you.
+              </p>
+            </div>
+
+            <a
+              href="https://github.com/TheHand-FPT/ForU"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-3 rounded-full border border-zinc-800 bg-zinc-900/50 px-6 py-3 text-sm font-medium text-zinc-400 transition-all hover:border-zinc-700 hover:bg-zinc-900 hover:text-zinc-100"
+            >
+              <FolderGit2 className="h-5 w-5 transition-transform group-hover:scale-110" />
+              <span>TheHand-FPT / ForU</span>
+            </a>
           </motion.div>
 
           <motion.div
