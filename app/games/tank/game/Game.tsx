@@ -928,7 +928,7 @@ export const Game: React.FC<{ onGameOver: (score: number) => void }> = ({
   useEffect(() => {
     requestRef.current = requestAnimationFrame(update);
     return () => cancelAnimationFrame(requestRef.current!);
-  }, []);
+  });
 
   return (
     <div
